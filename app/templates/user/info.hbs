@@ -1,0 +1,22 @@
+<p class='title'>Tell us who you are!</p>
+<p class='explanation'>We need a few more details to know who to pair your with.</p>
+
+<form {{action 'signup' name emailAddress classYear on='submit'}}>
+    <div class="form-group">
+        <label for="Name">Your Name</label>
+        {{input value=name type="text" placeholder="Your Name" class="form-control"}}
+    </div>
+    <div class="form-group">
+        <label for="Brown Email">Brown Email</label>
+        {{input-mask mask="email" placeholder="Brown Email" value=emailAddress autocorrect="off" autocapitalize="off" class="form-control"}}
+    </div>
+    <div class="form-group">
+        <label for="Class Year">Class Year</label>
+        {{input-mask value=classYear class="form-control" mask="9999" placeholder="####"}}
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-default">
+            Give me <span class="glyphicon glyphicon-heart"></span>
+        </button>
+    </div>
+</form>

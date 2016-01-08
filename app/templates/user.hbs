@@ -1,0 +1,48 @@
+<div class='landing-main parallax-viewport'>
+    <div class="contents clearfix">
+        <div class="logo">
+            {{lunch-love-logo}}
+        </div>
+        <div class="controls">
+            <div class="controls-wrapper">
+                {{liquid-outlet}}
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        {{#parallax-layer mouseport='div.landing-main'
+            yparallax='15%'
+            xparallax='5%'
+            yorigin=0.8
+            xorigin=1}}
+            <div class="with-water-back">
+                <img class='back' src="images/skyline.png">
+            </div>
+        {{/parallax-layer}}
+        {{#parallax-layer mouseport='div.landing-main'
+            yparallax='10%'
+            xparallax='8%'
+            yorigin=0.88
+            xorigin=0.42}}
+            <img class='middle' src="images/alpert.png">
+        {{/parallax-layer}}
+        {{#parallax-layer mouseport='div.landing-main'
+            yparallax='5%'
+            xparallax='15%'
+            yorigin=0.65
+            xorigin=0.3}}
+            <div class="with-water-front">
+                <img class='front' src="images/power_plant.png">
+            </div>
+        {{/parallax-layer}}
+    </div>
+</div>
+<div class='landing-footer'>
+    <span class='attrib'>Made with <span class="glyphicon glyphicon-heart"></span> in PVD.</span>
+    <span class='admin'>
+        <button class="btn btn-link">
+            Manage
+        </button>
+    </span>
+</div>
+

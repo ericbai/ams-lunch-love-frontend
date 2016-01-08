@@ -1,0 +1,248 @@
+body {
+    margin: 0;
+    font-family: gotham, helvetica, arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+
+.btn {
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0;
+    box-sizing: border-box;
+    padding-bottom: 3px;
+}
+
+.btn-danger {
+    border-bottom: 5px solid #c9302c;
+}
+
+.btn-success {
+    border-bottom: 5px solid #449c44;
+}
+
+.btn-default {
+    border-bottom: 5px solid #b7b7b7;
+}
+
+.btn-primary {
+    background-color: #1BA5E0;
+    border-color: #1BA5E0;
+    border-bottom: 5px solid #1584b3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+a {
+    color: gray;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.loading-slider > span {
+    background-color: #106386;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.4em;
+}
+
+h5 {
+    font-size: 1.2em;
+}
+
+p.small {
+    font-size: 0.9em;
+    color: #737373;
+}
+
+main {
+    height: 100vh;
+    width: 100vw;
+}
+
+span.glyphicon.glyphicon-heart {
+    color: #990000;
+    top: 0.2em;
+    margin-right: 0.3em;
+}
+
+.visibility-hidden {
+    visibility: hidden;
+}
+
+/*landing-page*/
+div.landing-main {
+    height: calc(100vh - 2.5em);
+    background-color: #fbfbf1;
+    position: relative;
+}
+
+div.landing-footer {
+    height: 2.5em;
+}
+
+div.landing-main,
+div.landing-footer {
+    width: 100vw;
+    overflow: hidden;
+}
+
+div.landing-main > div.contents {
+    height: calc(100% - 200px);
+    width: 100%;
+    position: relative;
+    z-index: 99;
+}
+
+div.landing-main > div.contents > div {
+    float: left;
+}
+
+div.landing-main > div.contents > div.logo {
+    width: 40%;
+}
+
+div.landing-main > div.contents > div:not(.logo) {
+    width: calc(100% - 40%);
+}
+
+div.landing-main > div.contents > div.controls {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 5%;
+    text-align: center;
+}
+
+div.landing-main > div.contents > div.controls > div.controls-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+div.landing-footer {
+    position: relative;
+}
+
+div.landing-footer > span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+div.landing-footer > span.attrib {
+    left: 1em;
+    font-weight: 700;
+    color: #4c4c4c;
+}
+
+div.landing-footer > span.admin {
+    right: 1em;
+}
+
+div.landing-footer > span.admin > .btn {
+    padding: 0;
+}
+
+div.landing-main > div.contents .title {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+div.landing-main > div.contents .explanation {
+    font-size: 1.2em;
+}
+
+/*end landing-page*/
+
+/*landing page logo*/
+
+div.landing-main div.logo {
+    height: 100%;
+}
+
+.lunch-love-logo {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.lunch-love-logo > canvas {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+}
+
+/*end landing page logo*/
+
+/*landing page parallax*/
+
+div.landing-main > div.parallax {
+    position: absolute;
+    height: 600px;
+    width: 800px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+div.landing-main img.front {
+    width: 800px;
+}
+
+div.landing-main img.middle {
+    width: 200px;
+}
+
+div.landing-main img.back {
+    width: 500px;
+}
+
+div.landing-main div.with-water-back,
+div.landing-main div.with-water-front {
+    position: relative;
+}
+
+div.landing-main div.with-water-back:before,
+div.landing-main div.with-water-front:before {
+    position: absolute;
+    content: ' ';
+    background: LightBlue;
+    width: 100%;
+    height: 600px;
+    top: 90%;
+    right: 0;
+}
+
+div.landing-main div.with-water-back:before {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 10%), url("/images/water-texture.jpg") repeat right top;
+    background-size: 80px;
+}
+
+div.landing-main div.with-water-front:before {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 15%), url("/images/water-texture.jpg") repeat right top;
+    background-size: 80px;
+}
+
+/*end landing page parallax*/
