@@ -1,0 +1,21 @@
+<div class='modal'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                {{#if headerIcon}}
+                    <div class="modal-icon">
+                        <span class={{headerIcon}}></span>
+                    </div>
+                {{/if}}
+                <h3 class='modal-title'>{{title}}</h3>
+            </div>
+            <div class='modal-body'>
+                {{yield}}
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-default' data-dismiss='modal'>{{closeLabel}}</button>
+                <button type='button' class='btn {{okButtonClass}}' {{action 'ok'}}>{{okLabel}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+{{#love-navbar}}
+	<ul class="nav navbar-nav">
+		{{#tool-tipster tagName='li' title="Invite New Admin" theme='tooltipster-punk'}}
+			<a href="#" {{action 'showModal' 'modals/invite-admin'}}>
+				<span class="glyphicon glyphicon-plus"></span>
+			</a>
+		{{/tool-tipster}}
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		{{#tool-tipster tagName='li' title="Back to Dashboard" theme='tooltipster-punk'}}
+			{{#link-to 'dashboard.index' tagName='a'}}
+				<span class="glyphicon glyphicon-th"></span>
+			{{/link-to}}
+	    {{/tool-tipster}}
+	    {{#tool-tipster tagName='li' title="Logout" theme='tooltipster-punk'}}
+			<a href="#" {{action 'logout'}}>
+				<span class="glyphicon glyphicon-log-out"></span>
+			</a>
+		{{/tool-tipster}}
+	</ul>
+{{/love-navbar}}
+
+<div class="manage-container clearfix">
+	<div class="settings custom-scroll">
+		<div class="text-center">
+			<h3>Settings</h3>
+		</div>
+		<form {{action "updateSettings" on="submit"}}>
+            <div class="form-group">
+                <label for="Username">Email</label>
+                <p>{{model.self.email}}</p>
+            </div>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                {{input value=model.self.name type="text" placeholder="Name" class="form-control"}}
+            </div>
+            <div class="form-group">
+                <label for="Cluster Size">
+                	Cluster Size
+                	{{#tool-tipster tagName='span' title="The size of each cluster we should aim for." theme='tooltipster-punk' maxWidth=300}}
+						<span class="glyphicon glyphicon-question-sign"></span>
+					{{/tool-tipster}}
+            	</label>
+                {{input value=model.self.clusterSize type="text" placeholder="Cluster Size" class="form-control"}}
+            </div>
+            <div class="form-group">
+                <label for="Overlap Tolerance">
+                	Overlap Tolerance
+                	{{#tool-tipster tagName='span' title="How much overlap to tolerate within each group. An overlap is when two members of a group have been grouped together before." theme='tooltipster-punk' maxWidth=300}}
+						<span class="glyphicon glyphicon-question-sign"></span>
+					{{/tool-tipster}}
+            	</label>
+                {{input value=model.self.overlapTolerance type="text" placeholder="Overlap Tolerance" class="form-control"}}
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger">Update</button>
+            </div>
+        </form>
+
+        {{#simple-slider showCaret=true triggerContent='Update Password'}}
+            <form {{action 'updatePasswordAndLogout' currentPassword newPassword confirmNewPassword on='submit'}}>
+                <span class='help-block'>Changing password will require logging back in.</span>
+                <div class='form-group'>
+                    <label for='Current Password' class='control-label'>Current Password</label>
+                    {{input type='password' class='form-control' placeholder='Current Password' value=currentPassword}}
+                </div>
+                <div class='form-group'>
+                    <label for='New Password' class='control-label'>New Password</label>
+                    {{input type='password' class='form-control' placeholder='New Password' value=newPassword}}
+                </div>
+                <div class='form-group'>
+                    <label for='Confirm New' class='control-label'>Confirm New</label>
+                    <div class='input-group'>
+                        {{input type='password' class='form-control' placeholder='Confirm New Password' value=confirmNewPassword}}
+                        <span class='input-group-btn'>
+                            <button class='btn btn-default' type='submit'>Update</button>
+                        </span>
+                    </div><!--input-group -->
+                </div>
+            </form>
+        {{/simple-slider}}
+	</div>
+	<div class="admins clearfix">
+		<div class="all">
+			<div class="header">
+				<h3>All Admins</h3>
+			</div>
+			<div class="contents">
+				{{#if model.admins}}
+					{{#infinite-tiles total=adminTotal
+						loadMoreAction='loadMoreAdmins'
+						itemSelector='.admin-row'
+						layoutMode='vertical'}}
+						{{#each model.admins as |admin|}}
+							<div class="admin-row">
+								<span class="admin-el">
+									<span class="admin-name">{{admin.name}}</span>
+									<span class="admin-email">{{admin.email}}</span>
+								</span>
+								{{#unless admin.isSelf}}
+									{{#if admin.shouldConfirmDelete}}
+										<button class="admin-el btn btn-link btn-link-danger" {{action 'deleteAdmin' admin}}>
+											Confirm
+										</button>
+									{{else}}
+										<button class="admin-el btn btn-link btn-link-danger" {{action 'confirmDeleteAdmin' admin}}>
+											{{#tool-tipster tagName='span' title="Delete admin" theme='tooltipster-punk' maxWidth=300}}
+												<span class="glyphicon glyphicon-trash"></span>
+											{{/tool-tipster}}
+										</button>
+									{{/if}}
+								{{/unless}}
+							</div>
+						{{/each}}
+					{{/infinite-tiles}}
+				{{else}}
+					<div class="no-content">
+						No admins yet!
+					</div>
+				{{/if}}
+			</div>
+		</div>
+		<div class="pending">
+			<div class="header">
+				<h3>
+					Pending Admins
+					{{#tool-tipster tagName='span' title="Pending admins are those who have been invited who have not confirmed via email yet." theme='tooltipster-punk' maxWidth=300}}
+						<span class="glyphicon glyphicon-question-sign"></span>
+					{{/tool-tipster}}
+				</h3>
+			</div>
+			<div class="contents">
+				{{#if model.pendingAdmins}}
+					{{#infinite-tiles total=pendingAdminTotal
+						loadMoreAction='loadMorePendingAdmins'
+						itemSelector='.admin-row'
+						layoutMode='vertical'}}
+						{{#each model.pendingAdmins as |pending|}}
+							<div class="admin-row">
+								<span class="admin-el">
+									<span class="admin-name">{{pending.name}}</span>
+									<span class="admin-email">{{pending.email}}</span>
+								</span>
+								{{#if pending.shouldConfirmCancelInvite}}
+									<button class="admin-el btn btn-link btn-link-danger" {{action 'cancelPending' pending}}>
+										Confirm
+									</button>
+								{{else}}
+									<button class="admin-el btn btn-link btn-link-danger" {{action 'confirmCancelPending' pending}}>
+										{{#tool-tipster tagName='span' title="Cancel invitation" theme='tooltipster-punk' maxWidth=300}}
+										<span class="glyphicon glyphicon-remove"></span>
+									{{/tool-tipster}}
+									</button>
+								{{/if}}
+							</div>
+						{{/each}}
+					{{/infinite-tiles}}
+				{{else}}
+					<div class="no-content">
+						No pending admins!
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</div>

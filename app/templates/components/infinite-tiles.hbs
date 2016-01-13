@@ -1,0 +1,10 @@
+<div class="infinite-tiles-container">
+	{{yield}}
+	{{#if loadedAll}}
+	    <div class='infinite-tiles-status {{doneClass}}'></div>
+	{{else}}
+	    {{#if isLoading}}
+	        <div class='infinite-tiles-status {{loaderClass}}'></div>
+	    {{/if}}
+	{{/if}}
+</div>

@@ -1,0 +1,46 @@
+{{#full-modal title=showDetailsForUser.name okAction='' okLabel='' closeAction='closeUserDetails' closeLabel='Close' okButtonClass='hidden' headerIcon='glyphicon glyphicon-user'}}
+	<div class="details-container">
+		<div class="details">
+			<div {{action "updateSettings" on="submit"}}>
+	            <div class="form-group">
+	                <label for="Username">Email</label>
+	                <p>{{showDetailsForUser.email}}</p>
+	            </div>
+	            <div class="form-group">
+	                <label for="Username">Class Year</label>
+	                <p>{{showDetailsForUser.classYear}}</p>
+	            </div>
+	        </div>
+		</div>
+		<div class="groups">
+			<div class="header">
+				<h4>
+					Groups
+					{{#tool-tipster tagName='span' title="Past groups that this person has been in." theme='tooltipster-punk' maxWidth=300}}
+						<span class="glyphicon glyphicon-question-sign"></span>
+					{{/tool-tipster}}
+				</h4>
+			</div>
+			<div class="contents custom-scroll">
+				{{#if groupsForUserDetail}}
+					{{#infinite-tiles total=groupsTotalForUserDetail
+						loadMoreAction='loadMoreGroups'
+						itemSelector='.group-row'
+						layoutMode='vertical'}}
+						{{#each groupsForUserDetail as |group|}}
+							<div class="group-row">
+								{{#each group.users as |email|}}
+									<span class="member">{{email}}</span>
+								{{/each}}
+							</div>
+						{{/each}}
+					{{/infinite-tiles}}
+				{{else}}
+					<div class="no-content">
+						No groups yet!
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+{{/full-modal}}

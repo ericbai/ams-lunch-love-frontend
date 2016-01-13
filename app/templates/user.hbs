@@ -1,7 +1,7 @@
 <div class='landing-main parallax-viewport'>
     <div class="contents clearfix">
         <div class="logo">
-            {{lunch-love-logo}}
+            <img src="images/logo.png" alt="Logo">
         </div>
         <div class="controls">
             <div class="controls-wrapper">
@@ -13,7 +13,7 @@
         {{#parallax-layer mouseport='div.landing-main'
             yparallax='15%'
             xparallax='5%'
-            yorigin=0.8
+            yorigin=0.98
             xorigin=1}}
             <div class="with-water-back">
                 <img class='back' src="images/skyline.png">
@@ -22,15 +22,15 @@
         {{#parallax-layer mouseport='div.landing-main'
             yparallax='10%'
             xparallax='8%'
-            yorigin=0.88
+            yorigin=0.98
             xorigin=0.42}}
             <img class='middle' src="images/alpert.png">
         {{/parallax-layer}}
         {{#parallax-layer mouseport='div.landing-main'
             yparallax='5%'
             xparallax='15%'
-            yorigin=0.65
-            xorigin=0.3}}
+            yorigin=0.98
+            xorigin=0.1}}
             <div class="with-water-front">
                 <img class='front' src="images/power_plant.png">
             </div>
@@ -40,9 +40,7 @@
 <div class='landing-footer'>
     <span class='attrib'>Made with <span class="glyphicon glyphicon-heart"></span> in PVD.</span>
     <span class='admin'>
-        <button class="btn btn-link">
-            Manage
-        </button>
+        {{link-to 'Log In' 'login' classNames='btn btn-link' tagName='button'}}
     </span>
 </div>
 

@@ -1,0 +1,73 @@
+{{#love-navbar}}
+	<p class="navbar-text">
+		Generated groups of size {{clusterSize}} with at most {{overlapTolerance}} overlaps each
+	</p>
+
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			{{link-to 'Nevermind' 'dashboard.index' tagName='button' classNames='btn btn-default'}}
+		</li>
+		{{#if suggestedGroups}}
+			<li>
+				<button class="btn btn-danger" {{action 'sendLove'}}>
+					Send the <span class="glyphicon glyphicon-heart"></span>
+				</button>
+			</li>
+		{{/if}}
+	</ul>
+	<p class="navbar-text navbar-right">
+		{{numOverlaps}} overlap total
+	</p>
+{{/love-navbar}}
+
+<div class="love-clusters clearfix">
+	<div class="groups">
+		<div class="header">
+			<h3>Groups</h3>
+		</div>
+		<div class="contents">
+			{{#if suggestedGroups}}
+				<ul>
+					{{#each suggestedGroups as |group i|}}
+						<li>
+							<span class="number">{{plus i 1}}</span>
+							{{#each group.users as |email|}}
+								<span class="member">{{email}}</span>
+							{{/each}}
+						</li>
+					{{/each}}
+				</ul>
+			{{else}}
+				<div class="no-content">
+					No groups could be formed for groups of size {{clusterSize}} with no more than {{overlapTolerance}} members who have been already met. Try to select more people, reduce the group size, or increase the overlap tolerance.
+				</div>
+			{{/if}}
+		</div>
+	</div>
+	<div class="leftovers">
+		<div class="header">
+			<h3>
+				Leftovers
+				{{#tool-tipster tagName='span' title="We could not cluster these people. Please select more people, reduce the group size or increase the overlap tolerance." theme='tooltipster-punk' maxWidth=300}}
+					<span class="glyphicon glyphicon-question-sign"></span>
+				{{/tool-tipster}}
+			</h3>
+		</div>
+		<div class="contents">
+			{{#if ungroupedUsers}}
+				<ul>
+					{{#each ungroupedUsers as |email i|}}
+						<li>
+							<span class="number">{{plus i 1}}</span>
+							<span class="email">{{email}}</span>
+						</li>
+					{{/each}}
+				</ul>
+			{{else}}
+				<div class="no-content">
+					No leftovers!
+				</div>
+			{{/if}}
+		</div>
+	</div>
+</div>

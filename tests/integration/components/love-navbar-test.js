@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('lunch-love-logo', 'Integration | Component | lunch love logo', {
+moduleForComponent('love-navbar', 'Integration | Component | love navbar', {
   integration: true
 });
 
@@ -10,15 +10,15 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
 
-  this.render(hbs`{{lunch-love-logo}}`);
+  this.render(hbs`{{love-navbar}}`);
 
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:" + EOL +
   this.render(hbs`
-    {{#lunch-love-logo}}
+    {{#love-navbar}}
       template block text
-    {{/lunch-love-logo}}
+    {{/love-navbar}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

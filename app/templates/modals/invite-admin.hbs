@@ -1,0 +1,10 @@
+{{#full-modal title='Invite New Admin' okAction='inviteNewAdmin' okLabel='Invite' closeAction='closeInviteNewAdmin' closeLabel='Cancel' okButtonClass='btn-danger' headerIcon='glyphicon glyphicon-user'}}
+	<div class="form-group">
+        <label for="Name">Name</label>
+        {{input value=newAdminName type="text" placeholder="Name" class="form-control"}}
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        {{input-mask mask="email" placeholder="Email" value=newAdminEmail autocorrect="off" autocapitalize="off" class="form-control"}}
+    </div>
+{{/full-modal}}

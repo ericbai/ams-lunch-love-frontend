@@ -77,23 +77,113 @@ p.small {
 main {
     height: 100vh;
     width: 100vw;
+    background-color: #fbfbf1;
+}
+
+.main-outlet.liquid-container,
+.main-outlet.liquid-container > .liquid-child {
+    overflow: visible;
+    z-index: 50;
+    height: 100%;
+    width: 100%;
 }
 
 span.glyphicon.glyphicon-heart {
-    color: #990000;
+    color: #b74c4c;
     top: 0.2em;
     margin-right: 0.3em;
 }
 
-.visibility-hidden {
-    visibility: hidden;
+/*scrollbar*/
+.custom-scroll::-webkit-scrollbar {
+    width: 5px;
+    height: 1px;
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.1);
 }
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: none;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+}
+
+/*end scrollbar*/
+
+/*modal*/
+.modal-dialog {
+    margin: 75px auto 0 auto;
+}
+
+.modal-open .modal {
+    background-color: white;
+    opacity: 0.95;
+}
+
+.modal-open .modal .modal-content > .modal-header {
+    border-bottom-width: 0;
+    text-align: center;
+}
+
+.modal-open .modal .modal-content > .modal-header > .modal-icon {
+    height: 37px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.modal-open .modal .modal-content > .modal-header > .modal-icon .glyphicon {
+    font-size: 200%;
+    color: #b74c4c;
+}
+
+.modal-open .modal .modal-content > .modal-header > .modal-icon > span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal-open .modal .modal-content > .modal-header > .modal-title {
+    min-width: 7em;
+    max-width: 12em;
+    margin: 0 auto;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid LightGray;
+}
+
+.modal-open .modal .modal-content {
+    border-width: 0;
+    box-shadow: none;
+}
+
+.modal-open .modal .modal-content > .modal-body {
+    text-align: center;
+}
+
+.modal-content .input-group-lg > .input-group-btn > button {
+    padding-top: 10px;
+}
+
+.modal-open .modal .modal-footer {
+    text-align: center;
+    border-top-width: 0;
+}
+
+/*end modal*/
 
 /*landing-page*/
 div.landing-main {
     height: calc(100vh - 2.5em);
-    background-color: #fbfbf1;
     position: relative;
+}
+
+div.landing-main > div.contents,
+div.landing-main > div.parallax {
+    width: 1000px;
+    margin: 0 auto;
 }
 
 div.landing-footer {
@@ -108,7 +198,6 @@ div.landing-footer {
 
 div.landing-main > div.contents {
     height: calc(100% - 200px);
-    width: 100%;
     position: relative;
     z-index: 99;
 }
@@ -118,11 +207,21 @@ div.landing-main > div.contents > div {
 }
 
 div.landing-main > div.contents > div.logo {
-    width: 40%;
+    width: 30%;
+    position: relative;
+    height: 100%;
+}
+
+div.landing-main > div.contents > div.logo > img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 div.landing-main > div.contents > div:not(.logo) {
-    width: calc(100% - 40%);
+    width: calc(100% - 30%);
 }
 
 div.landing-main > div.contents > div.controls {
@@ -175,33 +274,11 @@ div.landing-main > div.contents .explanation {
 
 /*end landing-page*/
 
-/*landing page logo*/
-
-div.landing-main div.logo {
-    height: 100%;
-}
-
-.lunch-love-logo {
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-
-.lunch-love-logo > canvas {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-}
-
-/*end landing page logo*/
-
 /*landing page parallax*/
 
 div.landing-main > div.parallax {
     position: absolute;
     height: 600px;
-    width: 800px;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -237,12 +314,468 @@ div.landing-main div.with-water-front:before {
 
 div.landing-main div.with-water-back:before {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 10%), url("/images/water-texture.jpg") repeat right top;
-    background-size: 80px;
+    background-size: 100px;
 }
 
 div.landing-main div.with-water-front:before {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 15%), url("/images/water-texture.jpg") repeat right top;
-    background-size: 80px;
+    background-size: 100px;
 }
 
 /*end landing page parallax*/
+
+/*login*/
+
+.login-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25em;
+    text-align: center;
+}
+
+.login-container > .login-logo > img {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.login-container > .login-content {
+    height: 50%;
+    padding: 2em 2em;
+    margin-top: 1em;
+    border-bottom: 15px solid #b74c4c;
+    border-top: 2px solid #4c4c4c;
+    background-color: white;
+}
+
+/*end login*/
+
+/*dashboard*/
+nav.navbar {
+    background-color: white;
+    height: 75px;
+    padding-top: 10px;
+    margin: 0;
+}
+
+div.dashboard-grid,
+div.love-clusters,
+div.manage-container {
+    height: calc(100vh - 75px);
+    width: 100%;
+}
+
+div.dashboard-grid div.no-results,
+div.love-clusters div.no-content,
+div.manage-container div.no-content {
+    text-align: center;
+    padding: 2em 0;
+    font-size: 1.5em;
+}
+
+nav.navbar p.navbar-text {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #4c4c4c;
+}
+
+nav.navbar p.navbar-text.navbar-right {
+    margin-right: 15px;
+}
+
+nav.navbar li button {
+    margin-top: 8px;
+}
+
+nav.navbar a .glyphicon,
+nav.navbar .btn-link .glyphicon {
+    font-size: 1.5em;
+    color: #4c4c4c;
+}
+
+nav.navbar a .caret {
+    border-width: 0.6em 0.4em;
+    margin-top: -6px;
+}
+
+nav.navbar .navbar-brand {
+    padding: 0 1em;
+}
+
+nav.navbar .navbar-brand img {
+    height: 57px;
+    margin-top: -4px;
+}
+
+nav.navbar .navbar-form input {
+    border: 0;
+    box-shadow: none;
+    border-bottom: 5px solid #4c4c4c;
+    border-radius: 0;
+    color: #4c4c4c;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0 5px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 20px;
+}
+
+nav.navbar .navbar-nav > li > .dropdown-menu {
+    border: 0;
+    border-top: 1px solid #4c4c4c;
+    border-bottom: 5px solid #b74c4c;
+    border-radius: 0;
+    text-align: center;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents .user-tile-header {
+    position: relative;
+    background-color: #e4e4e4;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents {
+    border-bottom: 5px solid #e4e4e4;
+    cursor: pointer;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents .user-tile-header.selected {
+    background-color: #b74c4c;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents .user-tile-header.selected .name {
+    color: white;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents.selected {
+    border-bottom-color: #b74c4c;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents .user-tile-header .name {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #4c4c4c;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents .user-tile-header .class-year {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 0;
+    margin-left: 0.5em;
+    background-color: #bdbdbd;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents .user-tile-header button.select-area {
+    height: 40px;
+    width: 40px;
+    border: 0;
+    display: block;
+    background-color: #4c4c4c;
+    color: white;
+}
+
+div.dashboard-grid .infinite-tiles .tile-wrapper .tile-contents p {
+    margin: 5px 10px;
+}
+
+/*end dashboard*/
+
+/*infinite-tiles*/
+.infinite-tiles {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.infinite-tiles .infinite-tiles-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.infinite-tiles .infinite-tiles-container .infinite-tiles-status.infinite-tiles-done {
+    height: 0;
+    width: 0;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-style: solid;
+    border-width: 0 20px 20px 20px;
+    box-sizing: content-box;
+    border-color: #fbfbf1;
+    border-bottom-color: #b74c4c;
+}
+
+.infinite-tiles .tile-wrapper {
+    width: 25%;
+    padding: 1em;
+}
+
+.infinite-tiles .tile-wrapper .tile-contents {
+    background-color: white;
+}
+
+/*end infinite-tiles*/
+
+/*dashboard love*/
+
+div.love-clusters {
+    background-color: white;
+    position: relative;
+}
+
+div.love-clusters:after {
+    content: ' ';
+    position: absolute;
+    height: 100%;
+    left: 70%;
+    width: 3px;
+    background-color: LightGray;
+}
+
+div.love-clusters > div,
+div.manage-container > div.admins > div {
+    float: left;
+}
+
+div.love-clusters > div.groups {
+    width: 70%;
+}
+
+div.love-clusters > div.leftovers {
+    width: 30%;
+}
+
+div.love-clusters > div > div.header,
+div.manage-container > div.admins > div > div.header {
+    height: 50px;
+    padding: 1em;
+    background-color: #fbfbf1;
+    text-align: center;
+}
+
+div.love-clusters > div > div.header h3,
+div.manage-container h3 {
+    font-weight: 700;
+}
+
+div.love-clusters > div > div.contents,
+div.manage-container > div.admins > div > div.contents {
+    height: calc(100% - 50px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+div.love-clusters ul {
+    list-style: none;
+    padding: 0;
+}
+
+div.love-clusters ul > li {
+    border-bottom: 1px solid LightGray;
+    padding: 1em;
+    padding-left: 0;
+}
+
+div.love-clusters ul > li > .number {
+    background-color: #4c4c4c;
+    color: white;
+    font-weight: 700;
+    font-size: 1.3em;
+    padding: 1em;
+    margin-right: 1em;
+}
+
+div.love-clusters ul > li > .member {
+    background-color: LightGray;
+    color: #696969;
+    padding: 0.4em 0.8em;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+/*end dashboard love*/
+
+/*simple slider*/
+
+.simple-slider {
+    margin-bottom: 1em;
+}
+
+.simple-slider > .simple-slider-trigger {
+    cursor: pointer;
+    position: relative;
+}
+
+.simple-slider > .simple-slider-trigger.simple-slider-trigger-default {
+    padding: 0.5em 1em;
+    background-color: LightGray;
+    border-bottom: 5px solid gray;
+    font-weight: 700;
+}
+
+.simple-slider > .simple-slider-trigger > .caret {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1em;
+}
+
+.simple-slider > .simple-slider-body.simple-slider-body-default {
+    padding: 1em;
+}
+
+/*end simple slider*/
+
+/*manage*/
+div.manage-container {
+    position: relative;
+}
+
+div.manage-container:after,
+div.manage-container > div.admins:after {
+    content: ' ';
+    position: absolute;
+    height: 100%;
+    left: 30%;
+    width: 3px;
+    background-color: LightGray;
+}
+
+div.manage-container > div {
+    float: left;
+}
+
+div.manage-container > div.settings {
+    width: 30%;
+    height: 100%;
+    padding: 1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+div.manage-container div.settings > form {
+    margin: 2em 0;
+}
+
+div.manage-container > div.admins {
+    width: 70%;
+    height: 100%;
+    position: relative;
+    background-color: white;
+}
+
+div.manage-container > div.admins:after {
+    left: 50%;
+    width: 2px;
+}
+
+div.manage-container > div.admins > div {
+    width: 50%;
+    height: 100%;
+}
+
+div.manage-container > div.admins > div .admin-row {
+    width: 100%;
+    height: 3em;
+    padding-right: 0;
+    border-bottom: 1px solid LightGray;
+    position: relative;
+}
+
+div.manage-container > div.admins > div .admin-row .admin-el {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+div.manage-container > div.admins > div .admin-row span.admin-el {
+    left: 1em;
+}
+
+div.manage-container > div.admins > div .admin-row button.admin-el {
+    right: 0;
+}
+
+div.manage-container > div.admins > div .admin-row button.btn-link-danger {
+    color: #b74c4c;
+}
+
+div.manage-container > div.admins > div .admin-row .admin-name {
+    background-color: #4c4c4c;
+    padding: 0.3em;
+    border-radius: 3px;
+    color: white;
+    font-weight: 700;
+    margin-right: 1em;
+}
+
+/*end manage*/
+
+/*user details*/
+
+.details-container {
+    height: 50vh;
+    position: relative;
+}
+
+.details-container > div.details {
+    position: absolute;
+    width: 10em;
+    background-color: #fafafa;
+    left: 0;
+    transform: translateX(-100%);
+    overflow: hidden;
+    padding: 1em;
+    border-left: 5px solid #b74c4c;
+    top: 30px;
+}
+
+.details-container > div.groups {
+    width: 100%;
+    height: 100%;
+}
+
+.details-container > div.groups > .header {
+    height: 30px;
+    border-bottom: 2px solid #4c4c4c;
+}
+
+.details-container > div.groups > .header  h4 {
+    font-weight: 700;
+}
+
+.details-container > div.groups > .contents {
+    height: calc(100% - 30px);
+    background-color: white;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.details-container > div.groups > .contents .group-row {
+    height: 3em;
+    padding: 0.8em;
+    border-bottom: 1px solid LightGray;
+    background-color: white;
+    width: 100%;
+}
+
+.details-container > div.groups > .contents .group-row .member {
+    background-color: LightGray;
+    color: #696969;
+    padding: 0.2em 0.4em;
+    margin: 0 0.1em;
+    border-radius: 2px;
+    font-weight: 700;
+}
+
+/*end user details*/

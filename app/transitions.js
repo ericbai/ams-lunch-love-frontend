@@ -9,4 +9,8 @@ export default function() {
         this.toRoute('user.done'),
         this.use('toUp')
     );
+    this.transition(
+        this.hasClass('slide-outlet'),
+        this.use('toLeft')
+    );
 }

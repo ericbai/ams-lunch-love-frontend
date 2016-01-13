@@ -16,17 +16,17 @@ export default Ember.Component.extend({
     didInsertElement: function() {
         const container = this.$(),
             images = this.$().find('img');
-        container.addClass('visibility-hidden')
-            .parallax({
-                mouseport: Ember.$(this.get('mouseport')),
-                yparallax: this.get('yparallax'),
-                xparallax: this.get('xparallax'),
-                yorigin: this.get('yorigin'),
-                xorigin: this.get('xorigin'),
+        images.one('load', () => {
+            Ember.run.next(this, function() {
+                container.parallax({
+                    mouseport: Ember.$(this.get('mouseport')),
+                    yparallax: this.get('yparallax'),
+                    xparallax: this.get('xparallax'),
+                    yorigin: this.get('yorigin'),
+                    xorigin: this.get('xorigin'),
+                });
+                container.trigger('mouseover');
             });
-        container.trigger('mouseover');
-        images.on('load', function() {
-            container.removeClass('visibility-hidden');
         });
     },
 });

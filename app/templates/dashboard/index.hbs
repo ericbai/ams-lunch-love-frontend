@@ -1,0 +1,116 @@
+{{#love-navbar}}
+	{{#if selectedUsers}}
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<button href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					Select <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#" {{action 'selectAll'}}>All</a></li>
+					<li><a href="#" {{action 'selectNone'}}>None</a></li>
+				</ul>
+			</li>
+		</ul>
+		<p class="navbar-text">
+			{{#if q}}
+				Searched for {{q}}
+			{{else if classYear}}
+				Showing class of {{classYear}}
+			{{/if}}
+		</p>
+		<p class="navbar-text">Selected {{selectedUsers.length}}</p>
+
+		<ul class="nav navbar-nav navbar-right">
+			{{#tool-tipster tagName='li' title="Delete Selected" theme='tooltipster-punk'}}
+				<a href="#" {{action 'showModal' 'modals/confirm-delete'}}>
+					<span class="glyphicon glyphicon-trash"></span>
+				</a>
+		    {{/tool-tipster}}
+
+			{{#if clusterSizeSatisfied}}
+				{{#tool-tipster tagName='li' title="Send love!" theme='tooltipster-punk'}}
+					<a href="#" {{action 'clusterUsers'}}>
+						<span class="glyphicon glyphicon-heart"></span>
+					</a>
+				{{/tool-tipster}}
+			{{/if}}
+		</ul>
+		{{#unless clusterSizeSatisfied}}
+			<p class="navbar-text navbar-right">
+				Minimum group size is {{clusterSize}}
+			</p>
+		{{/unless}}
+	{{else}}
+		<form class="navbar-form navbar-left" role="search">
+			<div class="form-group">
+				{{input type="text" class="form-control" placeholder="Search" value=searchString}}
+			</div>
+			<button type="submit" class="btn btn-link" {{action 'doSearch' searchString}}>
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+		</form>
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-filter"></span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#" {{action 'showAll'}}>All</a></li>
+					{{#if classYears}}
+						<li role="separator" class="divider"></li>
+						{{#each classYears as |year|}}
+							<li><a href="#" {{action 'showClassYear' year}}>{{year}}</a></li>
+						{{/each}}
+					{{/if}}
+				</ul>
+			</li>
+		</ul>
+		<p class="navbar-text">
+			{{#if q}}
+				Searched for {{q}}
+			{{else if classYear}}
+				Showing class of {{classYear}}
+			{{/if}}
+		</p>
+		<ul class="nav navbar-nav navbar-right">
+			{{#tool-tipster tagName='li' title="Manage" theme='tooltipster-punk'}}
+			    {{#link-to 'dashboard.manage' tagName='a'}}
+					<span class="glyphicon glyphicon-cog"></span>
+				{{/link-to}}
+		    {{/tool-tipster}}
+			{{#tool-tipster tagName='li' title="Logout" theme='tooltipster-punk'}}
+				<a href="#" {{action 'logout'}}>
+					<span class="glyphicon glyphicon-log-out"></span>
+				</a>
+			{{/tool-tipster}}
+		</ul>
+	{{/if}}
+{{/love-navbar}}
+<div class="dashboard-grid">
+	{{#unless model}}
+		<div class="no-results">
+			No users to display.
+		</div>
+	{{/unless}}
+	{{#infinite-tiles total=total loadMoreAction='loadMore'}}
+		{{#each model as |user|}}
+			<div class="tile-wrapper" {{action 'showUserDetails' user}}>
+				<div class="tile-contents {{if user.isSelected 'selected' ''}}">
+					<div class="user-tile-header {{if user.isSelected 'selected' ''}}">
+						<button class="select-area" {{action 'toggleUser' user bubbles=false}}>
+							{{#if user.isSelected}}
+								<span class="glyphicon glyphicon-ok"></span>
+							{{/if}}
+						</button>
+						<span class="name">
+							{{user.name}}
+						</span>
+						<span class="badge class-year">{{user.classYear}}</span>
+					</div>
+					<p class="email">{{user.email}}</p>
+				</div>
+	  		</div>
+		{{/each}}
+	{{/infinite-tiles}}
+</div>
