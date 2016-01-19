@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import ls from 'npm:local-storage';
 
 export default Ember.Route.extend({
 	queryParams: {
@@ -13,7 +12,7 @@ export default Ember.Route.extend({
 
 	model: function(params) {
 		params.offset = 0;
-		params.max = this.currentModel ? this.currentModel.get('length') : 10;
+		params.max = this.currentModel ? this.currentModel.get('length') : 30;
 		return this.executeQuery(params);
 	},
 	executeQuery: function(params) {
@@ -64,12 +63,12 @@ export default Ember.Route.extend({
 				numSelected = selectedUsers.length;
 			Ember.RSVP.all(selectedUsers.map((user) => {
 				return user.destroyRecord();
-			})).then((success) => {
+			})).then(() => {
 				this.send('destroyModal');
 				this.notifications.success(`Deleted ${numSelected} users.`);
 				this.refresh();
 				this.controller.send('selectNone');
-			}, (failure) => {
+			}, () => {
 				this.notifications.error('Could not delete all users. Please try again.');
 			});
 			return false;

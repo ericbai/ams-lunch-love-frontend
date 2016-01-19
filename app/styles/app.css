@@ -172,160 +172,281 @@ span.glyphicon.glyphicon-heart {
     border-top-width: 0;
 }
 
+div.landing-footer {
+    background-color: white;
+}
+
 /*end modal*/
+@media all and (max-width:499px) {
+    body {
+        font-size: 12px;
+    }
 
-/*landing-page*/
-div.landing-main {
-    height: calc(100vh - 2.5em);
-    position: relative;
+    /*landing-page*/
+    div.landing-main {
+        z-index: 99;
+    }
+
+    div.landing-main div.parallax {
+        display: none;
+    }
+
+    div.landing-main > div.contents {
+        width: 500px;
+        margin: 0 auto;
+        max-width: 100%;
+        min-height: 90vh;
+        position: relative;
+    }
+
+    div.landing-footer {
+        height: 10vh;
+    }
+
+    div.landing-main,
+    div.landing-footer {
+        width: 100vw;
+    }
+
+    div.landing-main > div.contents > div.logo {
+        width: 30%;
+        margin: 0 auto;
+        padding-top: 10vh;
+        padding-bottom: 5vh;
+    }
+
+    div.landing-main > div.contents > div.logo > img {
+        width: 100%;
+    }
+
+    div.landing-main > div.contents > div.controls {
+        width: 100%;
+        text-align: center;
+    }
+
+    div.landing-main > div.contents > div.controls > div.controls-wrapper {
+        padding: 0 5% 10vh 5%;
+        width: 100%;
+    }
+
+    div.landing-main > div.contents .title {
+        font-size: 1.5em;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    div.landing-main > div.contents .explanation {
+        font-size: 1.2em;
+    }
+
+    div.landing-footer {
+        position: relative;
+    }
+
+    div.landing-footer > span.attrib {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: 700;
+        color: #4c4c4c;
+    }
+
+    div.landing-footer > span.admin {
+        display: none;
+    }
+
+    div.landing-footer > span.decoration {
+        position: absolute;
+        right: 0;
+        height: 20vh;
+        top: 0;
+        transform: translateY(-100%);
+        overflow: hidden;
+    }
+
+    div.landing-footer > span.decoration img {
+        width: 100%;
+    }
+
+    /*end landing-page*/
 }
 
-div.landing-main > div.contents,
-div.landing-main > div.parallax {
-    width: 1000px;
-    margin: 0 auto;
+@media all and (min-width:500px) {
+
+    /*landing-page*/
+    div.landing-main {
+        height: calc(100vh - 2.5em);
+        position: relative;
+    }
+
+    div.landing-main > div.contents,
+    div.landing-main > div.parallax {
+        width: 1000px;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    div.landing-footer {
+        height: 2.5em;
+    }
+
+    div.landing-main,
+    div.landing-footer {
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    div.landing-main > div.contents {
+        height: calc(100% - 200px);
+        position: relative;
+        z-index: 99;
+    }
+
+    div.landing-main > div.contents > div {
+        float: left;
+    }
+
+    div.landing-main > div.contents > div.logo {
+        width: 40%;
+        position: relative;
+        height: 100%;
+    }
+
+    div.landing-main > div.contents > div.logo > img {
+        width: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    div.landing-main > div.contents > div.controls {
+        width: calc(100% - 40%);
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0 5%;
+        text-align: center;
+    }
+
+    div.landing-main > div.contents > div.controls > div.controls-wrapper {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    div.landing-footer {
+        position: relative;
+    }
+
+    div.landing-footer > span {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    div.landing-footer > span.decoration {
+        display: none;
+    }
+
+    div.landing-footer > span.attrib {
+        left: 1em;
+        font-weight: 700;
+        color: #4c4c4c;
+    }
+
+    div.landing-footer > span.admin {
+        right: 1em;
+    }
+
+    div.landing-footer > span.admin > .btn {
+        padding: 0;
+    }
+
+    div.landing-main > div.contents .title {
+        font-size: 1.5em;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    div.landing-main > div.contents .explanation {
+        font-size: 1.2em;
+    }
+
+    /*end landing-page*/
+
+    /*landing page parallax*/
+
+    div.landing-main > div.parallax {
+        position: absolute;
+        height: 600px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    div.landing-main > div.parallax .parallax-layer {
+        bottom: 0;    /*inherits absolute positioning*/
+    }
+
+    div.landing-main img.front {
+        width: 800px;
+    }
+
+    div.landing-main img.middle {
+        width: 200px;
+    }
+
+    div.landing-main img.back {
+        width: 500px;
+    }
+
+    div.landing-main div.with-water-back,
+    div.landing-main div.with-water-front {
+        position: relative;
+    }
+
+    div.landing-main div.with-water-back:before,
+    div.landing-main div.with-water-front:before {
+        position: absolute;
+        content: ' ';
+        background: LightBlue;
+        width: 100%;
+        height: 600px;
+        top: 90%;
+        right: 0;
+    }
+
+    div.landing-main div.with-water-back:before {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 10%), url("/images/water-texture.jpg") repeat right top;
+        background-size: 100px;
+    }
+
+    div.landing-main div.with-water-front:before {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 15%), url("/images/water-texture.jpg") repeat right top;
+        background-size: 100px;
+    }
+
+    /*end landing page parallax*/
 }
 
-div.landing-footer {
-    height: 2.5em;
+@media all and (min-width:800px) {
+    div.landing-main > div.contents > div.logo {
+        width: 30%;
+    }
+
+    div.landing-main > div.contents > div.logo > img {
+        width: 100%;
+    }
+
+    div.landing-main > div.contents > div.controls {
+        width: calc(100% - 30%);
+    }
+
 }
-
-div.landing-main,
-div.landing-footer {
-    width: 100vw;
-    overflow: hidden;
-}
-
-div.landing-main > div.contents {
-    height: calc(100% - 200px);
-    position: relative;
-    z-index: 99;
-}
-
-div.landing-main > div.contents > div {
-    float: left;
-}
-
-div.landing-main > div.contents > div.logo {
-    width: 30%;
-    position: relative;
-    height: 100%;
-}
-
-div.landing-main > div.contents > div.logo > img {
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-div.landing-main > div.contents > div:not(.logo) {
-    width: calc(100% - 30%);
-}
-
-div.landing-main > div.contents > div.controls {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0 5%;
-    text-align: center;
-}
-
-div.landing-main > div.contents > div.controls > div.controls-wrapper {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-div.landing-footer {
-    position: relative;
-}
-
-div.landing-footer > span {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-div.landing-footer > span.attrib {
-    left: 1em;
-    font-weight: 700;
-    color: #4c4c4c;
-}
-
-div.landing-footer > span.admin {
-    right: 1em;
-}
-
-div.landing-footer > span.admin > .btn {
-    padding: 0;
-}
-
-div.landing-main > div.contents .title {
-    font-size: 1.5em;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-div.landing-main > div.contents .explanation {
-    font-size: 1.2em;
-}
-
-/*end landing-page*/
-
-/*landing page parallax*/
-
-div.landing-main > div.parallax {
-    position: absolute;
-    height: 600px;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-div.landing-main img.front {
-    width: 800px;
-}
-
-div.landing-main img.middle {
-    width: 200px;
-}
-
-div.landing-main img.back {
-    width: 500px;
-}
-
-div.landing-main div.with-water-back,
-div.landing-main div.with-water-front {
-    position: relative;
-}
-
-div.landing-main div.with-water-back:before,
-div.landing-main div.with-water-front:before {
-    position: absolute;
-    content: ' ';
-    background: LightBlue;
-    width: 100%;
-    height: 600px;
-    top: 90%;
-    right: 0;
-}
-
-div.landing-main div.with-water-back:before {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 10%), url("/images/water-texture.jpg") repeat right top;
-    background-size: 100px;
-}
-
-div.landing-main div.with-water-front:before {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 15%), url("/images/water-texture.jpg") repeat right top;
-    background-size: 100px;
-}
-
-/*end landing page parallax*/
 
 /*login*/
-
 .login-container {
     position: absolute;
     top: 10%;
@@ -702,7 +823,8 @@ div.manage-container > div.admins > div .admin-row span.admin-el {
     left: 1em;
 }
 
-div.manage-container > div.admins > div .admin-row button.admin-el {
+div.manage-container > div.admins > div .admin-row button.admin-el,
+div.manage-container > div.admins > div .admin-row div.admin-el {
     right: 0;
 }
 

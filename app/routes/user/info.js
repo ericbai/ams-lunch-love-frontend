@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 				this.notifications.error('Please fill out all fields.');
 				return false;
 			}
-			if (!(/@brown.edu$/i.test(emailAddress))) {
+			if (!(/@brown.edu$/i.test(emailAddress)) && !(/@alumni.brown.edu$/i.test(emailAddress))) {
 				this.notifications.error('Please use your Brown email address.');
 				return false;
 			}
@@ -19,7 +19,7 @@ export default Ember.Route.extend({
 			newUser.save().then(() => {
 				this.notifications.success('Successfully signed up! Check your inbox for the confirmation email.');
 				this.transitionTo('user.done');
-			}, (failure) => {
+			}, () => {
 				this.notifications.error('Could not sign up. Please check your email address and try again later.');
 			});
 			return false;

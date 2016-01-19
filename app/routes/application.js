@@ -32,7 +32,7 @@ export default Ember.Route.extend({
 			this.send('sendCredentials', email, password, deferred);
 			deferred.promise.then((success) => {
 				ls.set('jwt', success.token);
-				ls.set('user', success.user);
+				ls.set('admin', success.admin);
 				ls.set('classYears', success.classYears);
 				this.notifications.success('Welcome back! Nice to see you!');
 				this.transitionTo('dashboard');

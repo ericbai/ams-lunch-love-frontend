@@ -1,0 +1,13 @@
+<p>Welcome! Please finish setting up your account by choosing a new password.</p>
+
+<form {{action 'chooseNewPassword' newPassword confirmNewPassword on='submit'}}>
+    <div class='form-group'>
+        <label for='New Password' class='control-label'>New Password</label>
+        {{input type='password' class='form-control' placeholder='New Password' value=newPassword}}
+    </div>
+    <div class='form-group'>
+        <label for='Confirm New' class='control-label'>Confirm New</label>
+        {{input type='password' class='form-control' placeholder='Confirm New Password' value=confirmNewPassword}}
+    </div>
+    <button class='btn btn-danger' type='submit'>Setup Account</button>
+</form>

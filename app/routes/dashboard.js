@@ -33,7 +33,7 @@ export default Ember.Route.extend(Auth, {
 				});
 				indexController.send('selectNone');
 				this.transitionTo('dashboard.love');
-			}, (failure) => {
+			}, () => {
 				this.notifications.error('Could not cluster users at this time. Please try again.');
 			});
 			return false;

@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
 		return ls.get('classYears');
 	}.property().volatile(),
 	clusterSize: function() {
-		return ls.get('user').clusterSize;
+		return ls.get('admin').clusterSize;
 	}.property().volatile(),
 
 	queryParams: ['q', 'classYear'],

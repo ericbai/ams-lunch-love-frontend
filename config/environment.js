@@ -5,7 +5,7 @@ module.exports = function(environment) {
         modulePrefix: 'ams-lunch-love-frontend',
         environment: environment,
         baseURL: '/',
-        locationType: 'auto',
+        locationType: 'hash',
         EmberENV: {
             FEATURES: {
                 // Here you can enable experimental features on an ember canary build
@@ -44,7 +44,8 @@ module.exports = function(environment) {
     }
 
     if (environment === 'production') {
-        ENV.host = 'http://www.amslunchlove.com';
+        ENV.host = 'http://ams-lunch-love.herokuapp.com';
+        // ENV.host = 'http://localhost:3000';
     }
 
     return ENV;

@@ -1,29 +1,30 @@
 import Ember from 'ember';
 import ls from 'npm:local-storage';
 import UUID from 'npm:node-uuid';
+import config from '../../config/environment';
 
 export default Ember.Route.extend({
 	model: function() {
 		return new Ember.RSVP.hash({
-			self: this.store.find('user', ls.get('user').email),
-			admins: this.store.query('user', {
-				admins: 'all',
-				max: this.currentModel ? this.currentModel.admins.get('length') : 10
+			self: this.store.find('admin', ls.get('admin').email),
+			admins: this.store.query('admin', {
+				show: 'all',
+				max: this.currentModel ? this.currentModel.admins.get('length') : 30
 			}),
-			pendingAdmins: this.store.query('user', {
-				admins: 'pending',
-				max: this.currentModel ? this.currentModel.pendingAdmins.get('length') : 10
+			pendingAdmins: this.store.query('admin', {
+				show: 'pending',
+				max: this.currentModel ? this.currentModel.pendingAdmins.get('length') : 30
 			})
 		});
 	},
 	addToArray: function(results, modelArray, deferred) {
 		Ember.RSVP.all(results.get('content').map((el) => {
-			return this.store.find('user', el.id);
-		})).then((users) => {
-			users.forEach((user) => {
-				modelArray.pushObject(user._internalModel);
+			return this.store.find('admin', el.id);
+		})).then((admins) => {
+			admins.forEach((admin) => {
+				modelArray.pushObject(admin._internalModel);
 			});
-			deferred.resolve(users);
+			deferred.resolve(admins);
 		}, deferred.reject);
 	},
 	deactivate: function() {
@@ -44,7 +45,9 @@ export default Ember.Route.extend({
 		this._super(controller, modelHash);
 		controller.setProperties({
 			adminTotal: modelHash.admins.get('meta.total'),
-			pendingAdminTotal: modelHash.pendingAdmins.get('meta.total')
+			pendingAdminTotal: modelHash.pendingAdmins.get('meta.total'),
+			shouldRefreshPending: 0,
+			shouldRefreshAdmins: 0
 		});
 	},
 
@@ -77,14 +80,24 @@ export default Ember.Route.extend({
 			const name = this.get('newAdminName'),
 				email = this.get('newAdminEmail'),
 				tempPassword = UUID.v4(),
-				newUser = this.store.createRecord('user', {
+				newAdmin = this.store.createRecord('admin', {
 					name: name,
 					password: tempPassword
 				});
-			newUser.set('email', email);
-			newUser.set('serializePassword', true);
-			newUser.save().then(() => {
+			newAdmin.set('email', email);
+			newAdmin.set('serializePassword', true);
+			newAdmin.save().then(() => {
 				this.notifications.success('Successfully invited new admin.');
+				const pendingAdmins = this.currentModel.pendingAdmins,
+					foundPending = pendingAdmins.find((pending) => {
+						return pending.get('email') === newAdmin.get('email');
+					});
+				if (!foundPending) {
+					this.store.find('admin', newAdmin.get('email')).then((admin) => {
+						pendingAdmins.unshiftObject(admin._internalModel);
+						this.controller.incrementProperty('shouldRefreshPending');
+					});
+				}
 				this.send('destroyModal');
 				this.controller.setProperties({
 					newAdminName: null,
@@ -103,6 +116,9 @@ export default Ember.Route.extend({
 			const name = admin.get('name');
 			admin.destroyRecord().then(() => {
 				this.notifications.success(`Successfully deleted ${name}.`);
+				this.currentModel.admins.removeObject(admin);
+				this.store.unloadRecord(admin);
+				this.controller.incrementProperty('shouldRefreshAdmins');
 			}, () => {
 				this.notifications.error(`Could not delete ${name}. Please try again.`);
 			});
@@ -116,13 +132,41 @@ export default Ember.Route.extend({
 			const name = pending.get('name');
 			pending.destroyRecord().then(() => {
 				this.notifications.success(`Canceled invite to ${name}.`);
+				this.currentModel.pendingAdmins.removeObject(pending);
+				this.store.unloadRecord(pending);
+				this.controller.incrementProperty('shouldRefreshPending');
 			}, () => {
 				this.notifications.error(`Could not cancel invite to ${name}. Please try again.`);
 			});
 			return false;
 		},
+		resendInvitation: function(pending) {
+			const name = pending.get('name'),
+				email = pending.get('email'),
+				tempPassword = UUID.v4();
+			Ember.$.ajax({
+				type: 'POST',
+				url: `${config.host}/api/admins`,
+				contentType: 'application/json',
+				beforeSend: function(request) {
+					request.setRequestHeader("x-access-token", ls.get("jwt"));
+				},
+				data: JSON.stringify({
+					admin: {
+						name: name,
+						password: tempPassword,
+						email: email
+					}
+				})
+			}).then(() => {
+				this.notifications.success(`Successfully resent invitation to ${name}`);
+			}, () => {
+				this.notifications.error(`Could not resend invitation to ${name}`);
+			});
+			return false;
+		},
 		loadMoreAdmins: function(offset, max, deferred) {
-			this.store.query('user', {
+			this.store.query('admin', {
 				admins: 'all',
 				offset: offset,
 				max: max
@@ -132,7 +176,7 @@ export default Ember.Route.extend({
 			return false;
 		},
 		loadMorePendingAdmins: function(offset, max, deferred) {
-			this.store.query('user', {
+			this.store.query('admin', {
 				admins: 'pending',
 				offset: offset,
 				max: max
@@ -147,16 +191,16 @@ export default Ember.Route.extend({
 		//////////////
 
 		updateSettings: function() {
-			const user = this.currentModel.self;
-			if (user.get('hasDirtyAttributes')) {
+			const admin = this.currentModel.self;
+			if (admin.get('hasDirtyAttributes')) {
 				Ember.run.debounce(this, function() {
-					user.save().then(() => {
+					admin.save().then(() => {
 						this.notifications.success('Successfully updated settings');
-						ls.set('user', {
-							name: user.get('name'),
-							email: user.get('email'),
-							clusterSize: user.get('clusterSize'),
-							overlapTolerance: user.get('overlapTolerance')
+						ls.set('admin', {
+							name: admin.get('name'),
+							email: admin.get('email'),
+							clusterSize: admin.get('clusterSize'),
+							overlapTolerance: admin.get('overlapTolerance')
 						});
 					}, () => {
 						this.notifications.error('Could not update your settings. Please try again later.');
@@ -176,12 +220,12 @@ export default Ember.Route.extend({
 			}
 			Ember.run.debounce(this, function() {
 				const deferred = Ember.RSVP.defer(),
-					user = this.currentModel.self;
+					admin = this.currentModel.self;
 				this.send('sendCredentials', this.currentModel.self.get('email'), currentPassword, deferred);
 				deferred.promise.then(() => {
-					user.set('serializePassword', true);
-					user.set('password', newPassword);
-					user.save().then(() => {
+					admin.set('serializePassword', true);
+					admin.set('password', newPassword);
+					admin.save().then(() => {
 						this.send('logout');
 						this.notifications.success('Successfully updated password');
 					}, () => {

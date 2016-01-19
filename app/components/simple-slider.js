@@ -25,10 +25,10 @@ export default Ember.Component.extend({
 	internalBodyClass: 'simple-slider-body',
 	internalTriggerClass: 'simple-slider-trigger',
 	sliderObj: function() {
-		return this.$().find(`.${this.get('internalBodyClass')}`)
+		return this.$().find(`.${this.get('internalBodyClass')}`);
 	}.property('internalBodyClass'),
 	triggerObj: function() {
-		return this.$().find(`.${this.get('internalTriggerClass')}`)
+		return this.$().find(`.${this.get('internalTriggerClass')}`);
 	}.property('internalTriggerClass'),
 	guid: Ember.guidFor(this),
 

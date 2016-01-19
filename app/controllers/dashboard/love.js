@@ -9,10 +9,10 @@ export default Ember.Controller.extend({
 	numOverlaps: Ember.computed.alias('dashboardController.numOverlaps'),
 
 	clusterSize: function() {
-		return ls.get('user').clusterSize;
+		return ls.get('admin').clusterSize;
 	}.property().volatile(),
 	overlapTolerance: function() {
-		return ls.get('user').overlapTolerance;
+		return ls.get('admin').overlapTolerance;
 	}.property().volatile(),
 
 	actions: {
@@ -27,7 +27,7 @@ export default Ember.Controller.extend({
 				data: JSON.stringify({
 					groups: this.get('suggestedGroups')
 				})
-			}).then((success) => {
+			}).then(() => {
 				this.notifications.success('Successfully sent love! Yay love!');
 				this.setProperties({
 					suggestedGroups: null,
@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
 					numOverlaps: null
 				});
 				this.transitionTo('dashboard.index');
-			}, (failure) => {
+			}, () => {
 				this.notifications.error('Could not save new groups. Please try again later.');
 			});
 			return false;

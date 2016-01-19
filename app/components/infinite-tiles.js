@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	itemSelector: '.tile-wrapper',
 	layoutMode: 'fitRows',
+	shouldRefresh: null,
 	total: null,
 	max: 10,
 
@@ -22,6 +23,9 @@ export default Ember.Component.extend({
 	// Events //
 	////////////
 
+	doRefresh: function() {
+		this.refresh();
+	}.on('init').observes('shouldRefresh'),
 	itemsContainer: function() {
 		return this.$().find(`.${this.get('itemsContainerClass')}`);
 	}.property('itemsContainerClass'),
@@ -58,7 +62,6 @@ export default Ember.Component.extend({
 	didUpdateAttrs: function() {
 		this.set('isLoading', false);
 		this.set('loadedAll', false);
-		const itemsContainer = this.get('itemsContainer');
 		this.loadMoreIfNoScroll().then(() => {
 			this.refresh();
 		});

@@ -13,7 +13,7 @@
                 <label for="Password">Password</label>
                 {{input value=password type="password" placeholder="Password" class="form-control"}}
             </div>
-            <a href="#" class="help-block" tabindex='-1' {{action 'renderModal' 'modals/forgot-password' this}}>Forgot Password?</a>
+            <a href="#" class="help-block" tabindex='-1' {{action 'showModal' 'modals/forgot-password'}}>Forgot Password?</a>
             <div class="text-center">
                 <button type="submit" class="btn btn-danger">Log in</button>
             </div>

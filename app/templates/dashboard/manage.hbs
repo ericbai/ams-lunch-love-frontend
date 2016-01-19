@@ -90,7 +90,8 @@
 					{{#infinite-tiles total=adminTotal
 						loadMoreAction='loadMoreAdmins'
 						itemSelector='.admin-row'
-						layoutMode='vertical'}}
+						layoutMode='vertical'
+						shouldRefresh=shouldRefreshAdmins}}
 						{{#each model.admins as |admin|}}
 							<div class="admin-row">
 								<span class="admin-el">
@@ -134,7 +135,8 @@
 					{{#infinite-tiles total=pendingAdminTotal
 						loadMoreAction='loadMorePendingAdmins'
 						itemSelector='.admin-row'
-						layoutMode='vertical'}}
+						layoutMode='vertical'
+						shouldRefresh=shouldRefreshPending}}
 						{{#each model.pendingAdmins as |pending|}}
 							<div class="admin-row">
 								<span class="admin-el">
@@ -146,11 +148,18 @@
 										Confirm
 									</button>
 								{{else}}
-									<button class="admin-el btn btn-link btn-link-danger" {{action 'confirmCancelPending' pending}}>
-										{{#tool-tipster tagName='span' title="Cancel invitation" theme='tooltipster-punk' maxWidth=300}}
-										<span class="glyphicon glyphicon-remove"></span>
-									{{/tool-tipster}}
-									</button>
+									<div class="admin-el btn-group" role="group">
+										<button class="btn btn-link btn-link-danger" {{action 'resendInvitation' pending}}>
+											{{#tool-tipster tagName='span' title="Resend invitation" theme='tooltipster-punk' maxWidth=300}}
+												<span class="glyphicon glyphicon-envelope"></span>
+											{{/tool-tipster}}
+										</button>
+									    <button class="btn btn-link btn-link-danger" {{action 'confirmCancelPending' pending}}>
+											{{#tool-tipster tagName='span' title="Cancel invitation" theme='tooltipster-punk' maxWidth=300}}
+												<span class="glyphicon glyphicon-remove"></span>
+											{{/tool-tipster}}
+										</button>
+									</div>
 								{{/if}}
 							</div>
 						{{/each}}
