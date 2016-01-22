@@ -39,6 +39,26 @@ export default Ember.Controller.extend({
 				this.notifications.error('Could not save new groups. Please try again later.');
 			});
 			return false;
-		}
+		},
+
+		// Drag and drop
+		// -------------
+
+		drop: function(target, sourceInfo) {
+			const json = JSON.parse(sourceInfo),
+				source = json.source,
+				email = json.email;
+			if (source === 'leftovers') {
+				this.get('ungroupedUsers').removeObject(email);
+			} else {
+				this.get('suggestedGroups')[source].users.removeObject(email);
+			}
+			if (target === 'leftovers') {
+				this.get('ungroupedUsers').pushObject(email);
+			} else {
+				this.get('suggestedGroups')[target].users.pushObject(email);
+			}
+			return false;
+		},
 	}
 });

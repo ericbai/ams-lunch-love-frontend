@@ -674,6 +674,7 @@ div.love-clusters > div.groups {
 
 div.love-clusters > div.leftovers {
     width: 30%;
+    height: 100%;
 }
 
 div.love-clusters > div > div.header,
@@ -705,6 +706,21 @@ div.love-clusters ul > li {
     border-bottom: 1px solid LightGray;
     padding: 1em;
     padding-left: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+div.love-clusters ul > li.draggable-item {
+    padding: 1em;
+}
+
+div.love-clusters ul > li.draggable-item.active {
+    background-color: LightGray;
+}
+
+div.love-clusters div.draggable-dropzone.active,
+div.love-clusters ul > li.draggable-dropzone.active {
+    background-color: #99cc99;
 }
 
 div.love-clusters ul > li > .number {
@@ -722,6 +738,19 @@ div.love-clusters ul > li > .member {
     padding: 0.4em 0.8em;
     border-radius: 3px;
     font-weight: 700;
+    display: inline-block;
+}
+
+div.love-clusters ul > li > .member.draggable-item {
+    margin-right: 1em;
+}
+
+div.love-clusters ul > li > .member.draggable-item.active {
+    opacity: 0.8;
+}
+
+.draggable-item {
+    cursor: pointer;
 }
 
 /*end dashboard love*/
@@ -852,7 +881,8 @@ div.manage-container > div.admins > div .admin-row .admin-name {
 
 .details-container > div.details {
     position: absolute;
-    width: 10em;
+    min-width: 10em;
+    max-width: 15em;
     background-color: #fafafa;
     left: 0;
     transform: translateX(-100%);
@@ -898,6 +928,10 @@ div.manage-container > div.admins > div .admin-row .admin-name {
     margin: 0 0.1em;
     border-radius: 2px;
     font-weight: 700;
+}
+
+.details-container > div.groups > .contents .no-content {
+    padding-top: 2em;
 }
 
 /*end user details*/

@@ -29,12 +29,20 @@
 			{{#if suggestedGroups}}
 				<ul>
 					{{#each suggestedGroups as |group i|}}
-						<li>
+						{{#draggable-dropzone tagName='li'
+							dropAction='drop'
+							sourceContentType='json'
+							contents=i}}
 							<span class="number">{{plus i 1}}</span>
 							{{#each group.users as |email|}}
-								<span class="member">{{email}}</span>
+								{{#draggable-item tagName='div'
+									classNames='member'
+									contentType='json'
+									contents=(concat '{ "source":' i ', "email":"' email '" }')}}
+									{{email}}
+								{{/draggable-item}}
 							{{/each}}
-						</li>
+						{{/draggable-dropzone}}
 					{{/each}}
 				</ul>
 			{{else}}
@@ -53,14 +61,19 @@
 				{{/tool-tipster}}
 			</h3>
 		</div>
-		<div class="contents">
+		{{#draggable-dropzone tagName='div'
+			classNames='contents'
+			dropAction='drop'
+			sourceContentType='json'
+			contents='leftovers'}}
 			{{#if ungroupedUsers}}
 				<ul>
-					{{#each ungroupedUsers as |email i|}}
-						<li>
-							<span class="number">{{plus i 1}}</span>
-							<span class="email">{{email}}</span>
-						</li>
+					{{#each ungroupedUsers as |email|}}
+						{{#draggable-item tagName='li'
+							contentType='json'
+							contents=(concat '{ "source":"leftovers", "email":"' email '" }')}}
+							{{email}}
+						{{/draggable-item}}
 					{{/each}}
 				</ul>
 			{{else}}
@@ -68,6 +81,6 @@
 					No leftovers!
 				</div>
 			{{/if}}
-		</div>
+		{{/draggable-dropzone}}
 	</div>
 </div>
